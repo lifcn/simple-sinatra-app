@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# clear legacy container
-docker stop simple-sinatra-app
-docker rm simple-sinatra-app
+# uncomment out below lines to clear legacy container
+# if not yet done in build stage
+#docker stop simple-sinatra-app
+#docker rm simple-sinatra-app
 
 # launch new container in service mode from image local/simple-sinatra-app
 # expose port 80/tcp 
