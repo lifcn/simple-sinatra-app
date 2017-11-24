@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# clear legacy container
+docker stop simple-sinatra-app
+docker rm simple-sinatra-app
+
+# launch new container in service mode from image local/simple-sinatra-app
+# expose port 80/tcp 
+docker run -d -p 80:4567 --name simple-sinatra-app local/simple-sinatra-app
+
+# sleep 300 seconds
+sleep 300 
+
 string=`sed -n '4p' helloworld.rb | sed -e 's/^[ \t]*//'`
 string1=`echo "${string:1:${#string}-2}"`
 
