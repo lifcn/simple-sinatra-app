@@ -15,7 +15,7 @@ Continuous Integration (CI) is a development practice that requires developers t
 ## Resources / Services Consumed / Used in This Solution
 
 * 2 Linux machines (2 vCPU, 2GiB Memory, 2GiB SWAP, 1 NIC, 15+GiB Disk Space)
-* An gmail account (smtp.gmail.com is used by Jenkins to send email notes)
+* A gmail account (smtp.gmail.com is used by Jenkins to send email notes)
 * A GitHub account and repo
 
 ## Set Up the CI Solution
@@ -24,17 +24,40 @@ Continuous Integration (CI) is a development practice that requires developers t
 
 * hostname, IP addresses & its designation
 | Hostname              | IP Address      	| Purpose      			|
-
 | :---                  | :---                  | :---                  	|
 | docker21.fen9.li	| 192.168.200.21/24	| docker host,Jenkins Master	|
 | docker22.fen9.li	| 192.168.200.22/24	| docker host,Jenkins Slave,developing host	|
 
-Note: developing host does not have to be and it should not be a Jenkins Slave host. 
+Note: developing host does not have to be and should not be a Jenkins Slave node. 
 
-* Update '/etc/hosts' if there is not any DNS 
+* Update '/etc/hosts' for docker21 & docker22 if there is not any DNS 
 ```sh
 echo '192.168.200.21  docker21.fen9.li   docker21' >> /etc/hosts
 echo '192.168.200.22  docker22.fen9.li   docker22' >> /etc/hosts
+```
+
+
+* Turn on firewall ports @ docker21
+
+```sh
+firewall-cmd --permanent --add-port={8080/tcp,50000/tcp}
+firewall-cmd --reload
+
+[root@docker21 ~]# firewall-cmd --list-port
+8080/tcp 50000/tcp
+[root@docker21 ~]#
+
+```
+
+* Turn on firewall port @ docker22
+
+```sh
+firewall-cmd --permanent --add-service=http
+firewall-cmd --reload
+
+[root@docker22 ~]# firewall-cmd --list-service
+ssh dhcpv6-client http
+[root@docker22 ~]#
 ```
 
 ### Install Software Packages on docker21 & docker22
@@ -53,26 +76,18 @@ echo '192.168.200.22  docker22.fen9.li   docker22' >> /etc/hosts
 
 ```sh
 [fli@docker21 ~]$ id
-uid=1000(fli) gid=1000(fli) groups=1000(fli),995(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[fli@docker21 ~]$
+
 [fli@docker21 ~]$ pwd
 /home/fli
 [fli@docker21 ~]$ mkdir jenkins_home
 [fli@docker21 ~]$
 ```
 
-* Turn on firewall ports
-
-```sh
-firewall-cmd --permanent --add-port={8080/tcp,50000/tcp}
-firewall-cmd --reload
-
-[root@docker21 ~]# firewall-cmd --list-port
-8080/tcp 50000/tcp
-[root@docker21 ~]#
-
-```
 
 * Create docker-compose.yml
+> This file is not tracked by git.
 
 ```sh
 [fli@docker21 ~]$ vi docker-compose.yml
@@ -90,7 +105,7 @@ services:
 [fli@docker21 ~]$
 ```
 
-* Start jenkins master now on docker21
+* Start jenkins master by using docker-compose command on docker21
 
 ```sh
 [fli@docker21 ~]$ docker-compose up -d
@@ -139,19 +154,21 @@ Start a web browser and enter 'http://192.168.200.21:8080/'.
 
 * Unlock Jenkins
 * Create first admin user
-* Double Jenkins version 
+* Double check Jenkins version 
  
 ### Add Jenkins Slave Node @ docker22
 
 * Ensure user in docker group, create jenkins_home
 
 ```sh
-[fli@docker21 ~]$ id
-uid=1000(fli) gid=1000(fli) groups=1000(fli),995(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
-[fli@docker21 ~]$ pwd
+[fli@docker22 ~]$ id
+uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[fli@docker22 ~]$
+
+[fli@docker22 ~]$ pwd
 /home/fli
-[fli@docker21 ~]$ mkdir jenkins_home
-[fli@docker21 ~]$
+[fli@docker22 ~]$ mkdir jenkins_home
+[fli@docker22 ~]$
 ``` 
 
 * Create slave node on Jenkins master web UI
@@ -159,8 +176,7 @@ uid=1000(fli) gid=1000(fli) groups=1000(fli),995(docker) context=unconfined_u:un
 
 ## A Commit Pipeline Example
 
-### On developer's developing host (docker22.fen9.li in this project context)
-* git clone this repo
+### Developer Clone a Repo 
 
 ```sh
 [fli@docker22 ~]$ git clone -b jenkins https://github.com/fen9li/simple-sinatra-app.git   Cloning into 'simple-sinatra-app'...
@@ -187,17 +203,6 @@ Unpacking objects: 100% (44/44), done.
 
 0 directories, 9 files
 [fli@docker22 simple-sinatra-app]$
-```
-
-* Turn on firewall port
-
-```sh
-firewall-cmd --permanent --add-service=http
-firewall-cmd --reload
-
-[root@docker22 ~]# firewall-cmd --list-service
-ssh dhcpv6-client http
-[root@docker22 ~]#
 ```
 
 ### On Jenkins Master UI
