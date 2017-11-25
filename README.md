@@ -23,7 +23,6 @@ Continuous Integration (CI) is a development practice that requires developers t
 ### Jenkins Master and Agent Hosts Designation
 
 | Hostname              | IP Address      	| Purpose      			|
-
 | :---                  | :---                  | :---                  	|
 | docker21.fen9.li	| 192.168.200.21/24	| docker host,Jenkins Master	|
 | docker22.fen9.li	| 192.168.200.22/24	| docker host,Jenkins Slave	|
