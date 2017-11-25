@@ -43,7 +43,7 @@ Continuous Integration (CI) is a development practice that requires developers t
 
 ```sh
 [fli@docker21 ~]$ id
-uid=1000(fli) gid=1000(fli) groups=1000(fli),995(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 [fli@docker21 ~]$ pwd
 /home/fli
 [fli@docker21 ~]$ mkdir jenkins_home
@@ -137,7 +137,7 @@ Start a web browser and enter 'http://192.168.200.21:8080/'.
 
 ```sh
 [fli@docker22 ~]$ id
-uid=1000(fli) gid=1000(fli) groups=1000(fli),995(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 [fli@docker22 ~]$ pwd
 /home/fli
 [fli@docker22 ~]$ mkdir jenkins_home
