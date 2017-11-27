@@ -180,7 +180,8 @@ uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:un
 ### Developer Clone a Repo 
 
 ```sh
-[fli@docker22 ~]$ git clone -b jenkins https://github.com/fen9li/simple-sinatra-app.git   Cloning into 'simple-sinatra-app'...
+[fli@docker22 ~]$ git clone -b jenkins https://github.com/fen9li/simple-sinatra-app.git   
+Cloning into 'simple-sinatra-app'...
 remote: Counting objects: 44, done.
 remote: Compressing objects: 100% (27/27), done.
 remote: Total 44 (delta 12), reused 21 (delta 3), pack-reused 14
