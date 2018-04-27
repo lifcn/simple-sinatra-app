@@ -1,4 +1,4 @@
-# CI Case Study: Combine the Power of Jenkins and Docker
+# CI Success Story : Combine the Power of Jenkins and Docker
 
 Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early. This project implements a CI solution by combining the power of Jenkins and docker to facility developers building and testing source code easily.
 
