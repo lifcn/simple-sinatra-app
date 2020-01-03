@@ -149,14 +149,17 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 ### Jenkins Initial Set Up
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins.html) for screenshots.
-
 Start a web browser and enter 'http://192.168.200.21:8080/'.
 
-* Unlock Jenkins
-* Create first admin user
-* Double check Jenkins version 
- 
+* Unlock Jenkins    
+![jenkins-setup-01](images/jenkins-setup-01.png)    
+
+* Create first admin user    
+![jenkins-setup-02](images/jenkins-setup-02.png)    
+
+* Double check Jenkins version     
+![jenkins-setup-03](images/jenkins-setup-03.png)    
+
 ### Add Jenkins Slave Node @ docker22
 
 * Ensure user in docker group, create jenkins_home
@@ -172,8 +175,15 @@ uid=1000(fli) gid=1000(fli) groups=1000(fli),994(docker) context=unconfined_u:un
 [fli@docker22 ~]$
 ``` 
 
-* Create slave node on Jenkins master web UI
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins_25.html) for screenshots.
+* Create slave node on Jenkins master web UI    
+
+![jenkins-new-node-01](images/jenkins-new-node-01.png)
+
+![jenkins-new-node-02](images/jenkins-new-node-02.png)
+
+![jenkins-new-node-03](images/jenkins-new-node-03.png)
+
+![jenkins-new-node-04](images/jenkins-new-node-04.png)
 
 ## A Commit Pipeline Example
 
@@ -210,7 +220,8 @@ Unpacking objects: 100% (44/44), done.
 ### On Jenkins Master UI
 * Define commit pipeline as below 
 
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins_26.html) for screenshots.
+![jenkins-job-define-01](images/jenkins-job-define-01.png)
+
 
 ```sh
 Pipeline
@@ -227,10 +238,10 @@ Pipeline
 ### Add triggers 
 * Configure Jenkins polling SCM (GitHub) every 10 minutes
 
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins_26.html) for screenshots.
+![jenkins-job-define-02](images/jenkins-job-define-02.png)
 
 ### Add Email notification
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins_26.html) for screenshots.
+![email-note-define-01](images/email-note-define-01.png)
 
 ```sh
 E-mail Notification: smtp.gmail.com
@@ -278,7 +289,19 @@ Branch jenkins set up to track remote branch jenkins from origin.
 
 * Once build finishes, Jenkins sends email notification as per designed
 
-> Refer [this company document](http://fengli-au.blogspot.com.au/2017/11/ci-case-study-combine-power-of-jenkins_73.html) for screenshots.
+![jenkins-job-01](images/jenkins-job-01.png)
+
+![jenkins-job-02](images/jenkins-job-02.png)
+
+![jenkins-job-03](images/jenkins-job-03.png)
+
+![jenkins-job-04](images/jenkins-job-04.png)
+
+![jenkins-job-05](images/jenkins-job-05.png)
+
+![email-note-01](images/email-note-01.png)
+
+![email-note-02](images/email-note-02.png)
 
 ## Where to Go Next
 * Add features to support continuous deployment.
